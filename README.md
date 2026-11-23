@@ -26,13 +26,13 @@ The use cases reflect common facility-management and property-operations problem
 ## Technology choices
 
 - **Python + pandas:** transparent analytical transformations.
-- **DuckDB:** local analytical SQL for future case studies; included as a dependency.
+- **DuckDB:** local analytical SQL over CSV and Parquet.
 - **Streamlit + Plotly:** interactive demonstration dashboard.
 - **MCP Python SDK 2.x:** standard interface for read-only tools.
 - **OpenAI Agents SDK:** optional job-description analysis with a local profile tool.
 - **pytest + Ruff + GitHub Actions:** automated quality checks.
 
-These upstream projects are dependencies, not copied source trees. Keep their own license notices and follow the terms of each dependency.
+Upstream projects are dependencies, not copied source trees. Keep their own licence notices and follow the terms of each dependency.
 
 ## Quick start
 
@@ -63,6 +63,7 @@ ops-analytics quality maintenance_collections.csv
 ops-analytics reconcile
 ops-analytics daily-plan
 ops-analytics job-followups
+ops-analytics linkedin-ideas
 ```
 
 ### Run tests and lint
@@ -78,7 +79,7 @@ ruff check .
 ops-analytics-mcp
 ```
 
-The server uses stdio by default. Configure the command in an MCP host only after reviewing that host's connection and data-access settings. It exposes sample-data summaries and does not write to MARS, GitHub, LinkedIn, Naukri or any external system.
+The server uses stdio by default. See [MCP connection guide](docs/mcp-setup.md). It reads only known CSV filenames and performs no external writes.
 
 ### Run the optional job-description agent
 
@@ -108,17 +109,18 @@ For personal use, point `OPS_DATA_DIR` to a local folder containing files with t
 
 ## Analytical assumptions
 
-- Collection recovery is calculated as total collected divided by total billed/due for the reporting rows. Outstanding is floored at zero per row; over-collection is surfaced separately.
+- Collection recovery is total collected divided by total billed/due for the reporting rows. Outstanding is floored at zero per row; over-collection is surfaced separately.
 - Complaint SLA compliance is based on elapsed time against the row's SLA target. Open tickets are assessed against the supplied `as_of` timestamp or current UTC time.
 - Reconciliation output is a **candidate suggestion**, not an accounting decision. Amount, date and reference evidence are scored transparently; a human must review ambiguous matches before posting anything.
-- The sample forecasting and prioritisation material is educational, not financial advice or a promise of predictive accuracy.
+- Forecasting and prioritisation are educational demonstrations, not financial advice or a promise of predictive accuracy.
 
 ## Portfolio status
 
-This is an actively developed portfolio project. The first release is a demonstrable local toolkit; external connectors, hosted MCP access, production data integrations and commercial multi-tenant operation are not included.
+This is an actively developed portfolio project. The local demo and CI test workflow are working. External connectors, hosted MCP access, production data integrations and commercial multi-tenant operation are not included.
 
 See:
 - [Architecture](docs/architecture.md)
+- [MCP connection guide](docs/mcp-setup.md)
 - [Six-month transition roadmap](docs/six-month-roadmap.md)
 - [Job-search workflow](docs/job-search-workflow.md)
 - [Open-source tool inventory](docs/open-source-tools.md)
