@@ -1,8 +1,8 @@
--- Business question: what are the billed, collected and outstanding amounts by society/month?
+-- Business question: what are billed, collected and outstanding amounts by society/month?
 -- Data source: synthetic sample_data/maintenance_collections.csv
 WITH collections AS (
     SELECT
-        CAST(month AS DATE) AS month,
+        CAST(month || '-01' AS DATE) AS month,
         society,
         CAST(units AS INTEGER) AS units,
         CAST(amount_due AS DECIMAL(18, 2)) AS amount_due,
