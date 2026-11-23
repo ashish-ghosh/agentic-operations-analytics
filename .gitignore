@@ -23,11 +23,10 @@ venv/
 *.key
 
 # Local data and databases
-data/job_applications.csv
-data/private/
-*.duckdb
-*.db
-*.sqlite
+data/*.csv
+data/*.duckdb
+data/*.db
+data/*.sqlite
 
 # Editors and OS
 .vscode/
