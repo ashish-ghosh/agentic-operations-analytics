@@ -3,36 +3,44 @@
 **Author:** Ashish Ghosh  
 **Focus:** Business Intelligence • Data Analytics • Python • SQL • Agentic AI
 
-A practical, open-source portfolio toolkit for analysing operational and financial workflows. It combines deterministic Python analytics with a read-only Model Context Protocol (MCP) server and an optional OpenAI agent interface.
+A practical, open-source portfolio toolkit for analysing operational and financial workflows. It combines deterministic Python analytics with a read-only Model Context Protocol (MCP) server and optional AI-agent workflows.
 
-The use cases reflect common facility-management and property-operations problems: maintenance collections, complaint SLA performance, bank-to-ledger reconciliation, data quality, job-search tracking and structured daily learning.
+## Featured agentic workflow: CashPilot
 
-> **Data and safety:** All committed datasets are synthetic. The analytics and MCP tools are read-only. Job-search workflows are manual-assist tools: this project does not scrape LinkedIn or Naukri, log in to job portals, submit applications, or publish posts.
+CashPilot is a zero-cost, synthetic-data MVP for daily receivables prioritisation, designed initially for Indian facility-management contractors and manpower service providers.
 
-## What is included
+It:
+- Calculates outstanding balances and ageing.
+- Identifies missing documentation, disputes and missed payment promises.
+- Ranks a daily collection work queue using transparent rules.
+- Prepares human-reviewed email drafts; it never sends automatically.
+- Produces a daily recovery digest.
+
+It is not a reminder bot and does not replace accounting software. The product hypothesis is that contractors need cross-app follow-through when invoices are blocked by missing approvals or evidence. That willingness to pay remains unvalidated.
+
+See [CashPilot architecture and commercial validation plan](docs/cashpilot-agent.md).
+
+## Other portfolio modules
 
 | Module | Demonstration |
 |---|---|
-| Collection analytics | Recovery rate, outstanding amount, fully paid units and collection trend |
-| Complaint analytics | Open tickets, SLA breaches, compliance rate and average resolution time |
-| Reconciliation suggestions | Explainable amount/reference/date matching with review statuses; never posts ledger entries |
-| Data quality | Missingness, duplicate rows, schema checks and row counts |
-| Job tracker | Local CSV tracker and upcoming follow-ups |
-| Daily plan | Repeatable 60–75 minute learning, portfolio and job-search routine |
-| LinkedIn content planner | Evidence-led post prompts; drafts remain human-reviewed |
-| MCP server | Exposes selected sample-data analytics as read-only tools to MCP-compatible hosts |
-| OpenAI agent | Optional job-description analysis against a transparent candidate profile |
+| Collection analytics | Recovery rate, outstanding amount and trends |
+| Complaint analytics | Open tickets, SLA breaches and resolution time |
+| Reconciliation suggestions | Explainable bank-to-ledger matching candidates |
+| Data quality | Missingness, duplicate rows and schema checks |
+| Career & Learning Hub | Local job tracker, follow-ups and habit scorecard |
+| LinkedIn content planner | Evidence-led drafts; no automated publishing |
+| MCP server | Read-only analytics tools |
+| OpenAI agent | Optional job-description analysis |
 
 ## Technology choices
 
-- **Python + pandas:** transparent analytical transformations.
-- **DuckDB:** local analytical SQL over CSV and Parquet.
-- **Streamlit + Plotly:** interactive demonstration dashboard.
-- **MCP Python SDK 2.x:** standard interface for read-only tools.
-- **OpenAI Agents SDK:** optional job-description analysis with a local profile tool.
-- **pytest + Ruff + GitHub Actions:** automated quality checks.
-
-Upstream projects are dependencies, not copied source trees. Keep their own licence notices and follow the terms of each dependency.
+- Python, pandas and DuckDB for data analysis.
+- Streamlit and Plotly for the dashboard.
+- MCP Python SDK for read-only agent tools.
+- OpenAI Agents SDK as an optional API-backed example.
+- Composio for a future per-customer integration layer.
+- pytest, Ruff and GitHub Actions for quality checks.
 
 ## Quick start
 
@@ -54,20 +62,10 @@ pip install -e ".[dev]"
 streamlit run src/ashish_ops_analytics/app.py
 ```
 
-### Run in GitHub Codespaces
-
-This repository includes a dev container configuration. In GitHub, open **Code → Codespaces → Create codespace on main**. Check your account quota and billing before creating a Codespace. See [Cloud and ChatGPT connection notes](docs/upstream-sdk-downloads.md).
-
-### Run the command-line tools
+### Run CashPilot on synthetic invoice data
 
 ```bash
-ops-analytics collections
-ops-analytics complaints
-ops-analytics quality maintenance_collections.csv
-ops-analytics reconcile
-ops-analytics daily-plan
-ops-analytics job-followups
-ops-analytics linkedin-ideas
+ops-analytics cashflow --as-of 2026-11-23
 ```
 
 ### Run tests and lint
@@ -83,55 +81,19 @@ ruff check .
 ops-analytics-mcp
 ```
 
-The server uses stdio by default. See [MCP connection guide](docs/mcp-setup.md). It reads only known CSV filenames and performs no external writes.
+The MCP server uses stdio and sample-data tools. It is not a hosted ChatGPT integration.
 
-### Run the optional job-description agent
+## Data and safety
 
-Set an OpenAI API key in your local environment (never commit it), then run:
+- All committed datasets are synthetic.
+- CashPilot does not send emails, change accounting records, initiate payments or submit legal claims.
+- Local job applications and habit records are excluded from Git.
+- Never commit customer invoices, bank statements, employee payroll records, personal data or provider credentials.
+- Composio integrations are planned per customer, with separate stable user IDs and least-privilege tools.
+- Hosted multi-tenant service and customer OAuth connections are not implemented yet.
 
-```bash
-# Windows PowerShell
-$env:OPENAI_API_KEY = "your-key"
-# macOS/Linux
-export OPENAI_API_KEY="your-key"
+See [architecture](docs/architecture.md), [MCP setup](docs/mcp-setup.md), [security](docs/safety-and-data-handling.md), and [six-month roadmap](docs/six-month-roadmap.md).
 
-ops-analytics analyse-job --file path/to/job-description.txt
-```
-
-This optional command makes model API requests and may incur usage charges on your OpenAI API account. It is not needed for the local analytics, dashboard, tests or MCP server.
-
-## Data contract
-
-The sample files in `sample_data/` are intentionally small and synthetic:
-
-- `maintenance_collections.csv`: one row per society/month with units, amount due and collected.
-- `complaints.csv`: ticket timestamps, priority, category, vendor and SLA target.
-- `bank_transactions.csv` and `ledger_entries.csv`: synthetic reconciliation candidates.
-- `job_applications_template.csv`: schema for a local job-search tracker.
-
-For personal use, point `OPS_DATA_DIR` to a local folder containing files with the same expected names. Do not place real resident data, bank statements, API keys or employer-confidential material in this public repository.
-
-## Analytical assumptions
-
-- Collection recovery is total collected divided by total billed/due for the reporting rows. Outstanding is floored at zero per row; over-collection is surfaced separately.
-- Complaint SLA compliance is based on elapsed time against the row's SLA target. Open tickets are assessed against the supplied `as_of` timestamp or current UTC time.
-- Reconciliation output is a **candidate suggestion**, not an accounting decision. Amount, date and reference evidence are scored transparently; a human must review ambiguous matches before posting anything.
-- Forecasting and prioritisation are educational demonstrations, not financial advice or a promise of predictive accuracy.
-
-## Portfolio status
-
-This is an actively developed portfolio project. The local demo and CI test workflow are working. External connectors, hosted MCP access, production data integrations and commercial multi-tenant operation are not included.
-
-See:
-- [Architecture](docs/architecture.md)
-- [MCP connection guide](docs/mcp-setup.md)
-- [Cloud, SDK downloads and ChatGPT connection notes](docs/upstream-sdk-downloads.md)
-- [Six-month transition roadmap](docs/six-month-roadmap.md)
-- [Job-search workflow](docs/job-search-workflow.md)
-- [Open-source tool inventory](docs/open-source-tools.md)
-- [Safety and data-handling notes](docs/safety-and-data-handling.md)
-- [Portfolio and resume positioning](docs/resume-positioning.md)
-
-## License
+## Licence
 
 MIT. See [LICENSE](LICENSE).

@@ -14,6 +14,7 @@ ALLOWED_SAMPLE_FILES = {
     "bank_transactions.csv",
     "ledger_entries.csv",
     "job_applications_template.csv",
+    "cashflow_invoices.csv",
 }
 
 
