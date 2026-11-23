@@ -39,8 +39,9 @@ def add_application(
         "next_followup_date": next_followup_date,
         "notes": notes.strip(),
     }
-    pd.DataFrame([row], columns=COLUMNS).to_csv(target, mode="a" if exists else "w",
-                                                  header=not exists, index=False)
+    pd.DataFrame([row], columns=COLUMNS).to_csv(
+        target, mode="a" if exists else "w", header=not exists, index=False
+    )
     return target
 
 
@@ -49,7 +50,8 @@ def due_followups(path: Path | None = None, as_of: date | None = None) -> pd.Dat
     target = path or local_job_tracker_path()
     if not target.exists():
         return pd.DataFrame(columns=COLUMNS)
+
     df = pd.read_csv(target).reindex(columns=COLUMNS)
-    dates = pd.to_datetime(df["next_followup_date"], errors="coerce").dt.date
-    cutoff = as_of or date.today()
-    return df.loc[dates.notna() & (dates <= cutoff)].copy()
+    followup_dates = pd.to_datetime(df["next_followup_date"], errors="coerce")
+    cutoff = pd.Timestamp(as_of or date.today())
+    return df.loc[followup_dates.notna() & (followup_dates <= cutoff)].copy()

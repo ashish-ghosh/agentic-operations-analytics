@@ -10,7 +10,10 @@ tickets AS (
         category,
         priority,
         CAST(created_at AS TIMESTAMPTZ) AS created_at,
-        TRY_CAST(NULLIF(resolved_at, '') AS TIMESTAMPTZ) AS resolved_at,
+        TRY_CAST(
+            NULLIF(TRIM(CAST(resolved_at AS VARCHAR)), '')
+            AS TIMESTAMPTZ
+        ) AS resolved_at,
         CAST(sla_hours AS DOUBLE) AS sla_hours
     FROM read_csv_auto('sample_data/complaints.csv')
 ),
@@ -34,7 +37,9 @@ SELECT
     COUNT(*) FILTER (WHERE elapsed_hours > sla_hours) AS breached_including_open,
     ROUND(AVG(elapsed_hours) FILTER (WHERE resolved_at IS NOT NULL), 2) AS avg_resolution_hours,
     ROUND(
-        100.0 * COUNT(*) FILTER (WHERE resolved_at IS NOT NULL AND elapsed_hours <= sla_hours)
+        100.0 * COUNT(*) FILTER (
+            WHERE resolved_at IS NOT NULL AND elapsed_hours <= sla_hours
+        )
         / NULLIF(COUNT(*) FILTER (WHERE resolved_at IS NOT NULL), 0),
         2
     ) AS resolved_sla_compliance_pct
