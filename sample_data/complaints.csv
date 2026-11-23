@@ -1,0 +1,9 @@
+ticket_id,society,category,priority,created_at,resolved_at,sla_hours,assigned_vendor
+T-1001,Sample Society A,Plumbing,High,2026-11-02T09:00:00Z,2026-11-02T14:00:00Z,8,Vendor Alpha
+T-1002,Sample Society A,Electrical,Medium,2026-11-02T10:00:00Z,2026-11-03T12:00:00Z,24,Vendor Beta
+T-1003,Sample Society B,Housekeeping,Low,2026-11-03T08:00:00Z,2026-11-03T11:00:00Z,48,Vendor Gamma
+T-1004,Sample Society A,Lift,High,2026-11-04T07:00:00Z,2026-11-05T12:00:00Z,12,Vendor Delta
+T-1005,Sample Society B,Plumbing,Medium,2026-11-05T10:00:00Z,,24,Vendor Alpha
+T-1006,Sample Society A,Security,High,2026-11-06T08:30:00Z,2026-11-06T11:15:00Z,8,Vendor Epsilon
+T-1007,Sample Society B,Horticulture,Low,2026-11-07T09:00:00Z,2026-11-08T10:00:00Z,72,Vendor Gamma
+T-1008,Sample Society A,Electrical,Medium,2026-11-08T12:00:00Z,,24,Vendor Beta

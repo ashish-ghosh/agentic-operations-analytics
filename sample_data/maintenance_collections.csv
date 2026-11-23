@@ -1,0 +1,13 @@
+month,society,units,amount_due,amount_collected
+2026-01,Sample Society A,120,360000,332000
+2026-02,Sample Society A,120,360000,338000
+2026-03,Sample Society A,120,360000,345000
+2026-04,Sample Society A,120,372000,349000
+2026-05,Sample Society A,120,372000,351000
+2026-06,Sample Society A,120,372000,360000
+2026-01,Sample Society B,80,224000,210000
+2026-02,Sample Society B,80,224000,216000
+2026-03,Sample Society B,80,232000,218000
+2026-04,Sample Society B,80,232000,223000
+2026-05,Sample Society B,80,232000,229000
+2026-06,Sample Society B,80,240000,235000

@@ -1,0 +1,6 @@
+ledger_entry_id,ledger_date,ledger_amount,reference,resident_unit,description
+LE-001,2026-11-01,3500.00,UPI-A101,A-101,Maintenance receipt
+LE-002,2026-11-02,4200.00,NEFT-B203,B-203,Maintenance receipt
+LE-003,2026-11-04,2800.00,UPI-C104,C-104,Maintenance receipt
+LE-004,2026-11-04,5100.00,UPI-D305,D-305,Maintenance receipt
+LE-005,2026-11-07,6000.00,CASH-E110,E-110,Cash counter receipt

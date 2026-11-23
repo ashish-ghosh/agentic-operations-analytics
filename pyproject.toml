@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ashish-operations-analytics"
+version = "0.1.0"
+description = "Synthetic-data portfolio toolkit for operations analytics and read-only agent tools"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "Ashish Ghosh" }]
+dependencies = [
+  "pandas>=2.2,<3",
+  "duckdb>=1.2,<2",
+  "streamlit>=1.42,<2",
+  "plotly>=6,<7",
+  "mcp>=2.3,<3",
+  "openai-agents>=0.24,<1",
+  "python-dotenv>=1.0,<2"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9",
+  "ruff>=0.9,<1"
+]
+documents = [
+  "docling>=2.0,<3"
+]
+
+[project.scripts]
+ops-analytics = "ashish_ops_analytics.cli:main"
+ops-analytics-mcp = "ashish_ops_analytics.mcp_server:run"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

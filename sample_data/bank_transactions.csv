@@ -1,0 +1,6 @@
+bank_transaction_id,bank_date,bank_amount,reference,description
+BT-001,2026-11-01,3500.00,UPI-A101,UPI credit
+BT-002,2026-11-02,4200.00,NEFT-B203,NEFT credit
+BT-003,2026-11-03,2800.00,UPI-C104,UPI credit
+BT-004,2026-11-04,5100.00,UPI-D305,UPI credit
+BT-005,2026-11-05,1900.00,UNMATCHED-77,UPI credit
