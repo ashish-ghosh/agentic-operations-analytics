@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import duckdb
-import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,3 +35,4 @@ def test_reconciliation_sql_returns_review_suggestions_not_postings():
     assert "review_status" in result.columns
     assert set(result["review_status"]).issubset({"high_confidence_review", "manual_review"})
     assert "resident_unit" in result.columns
+}
