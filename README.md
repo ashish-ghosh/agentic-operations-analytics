@@ -17,7 +17,7 @@ The use cases reflect common facility-management and property-operations problem
 | Complaint analytics | Open tickets, SLA breaches, compliance rate and average resolution time |
 | Reconciliation suggestions | Explainable amount/reference/date matching with review statuses; never posts ledger entries |
 | Data quality | Missingness, duplicate rows, schema checks and row counts |
-| Job tracker | Local CSV tracker and upcoming follow-ups for applications |
+| Job tracker | Local CSV tracker and upcoming follow-ups |
 | Daily plan | Repeatable 60–75 minute learning, portfolio and job-search routine |
 | LinkedIn content planner | Evidence-led post prompts; drafts remain human-reviewed |
 | MCP server | Exposes selected sample-data analytics as read-only tools to MCP-compatible hosts |
@@ -53,6 +53,10 @@ pip install -e ".[dev]"
 ```bash
 streamlit run src/ashish_ops_analytics/app.py
 ```
+
+### Run in GitHub Codespaces
+
+This repository includes a dev container configuration. In GitHub, open **Code → Codespaces → Create codespace on main**. Check your account quota and billing before creating a Codespace. See [Cloud and ChatGPT connection notes](docs/upstream-sdk-downloads.md).
 
 ### Run the command-line tools
 
@@ -121,6 +125,7 @@ This is an actively developed portfolio project. The local demo and CI test work
 See:
 - [Architecture](docs/architecture.md)
 - [MCP connection guide](docs/mcp-setup.md)
+- [Cloud, SDK downloads and ChatGPT connection notes](docs/upstream-sdk-downloads.md)
 - [Six-month transition roadmap](docs/six-month-roadmap.md)
 - [Job-search workflow](docs/job-search-workflow.md)
 - [Open-source tool inventory](docs/open-source-tools.md)
