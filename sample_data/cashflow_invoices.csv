@@ -1,0 +1,7 @@
+invoice_id,customer_name,site,invoice_date,due_date,invoice_amount,amount_received,payment_promise_date,missing_documents,dispute_flag
+INV-26041,Northstar Business Park,Jaipur Site A,2026-10-01,2026-10-31,185000,0,2026-11-20,Attendance certificate; service entry sheet,false
+INV-26042,Meridian Offices,Jaipur Site B,2026-10-10,2026-11-10,92000,25000,2026-11-25,,false
+INV-26043,Amber Retail Group,Jaipur Site C,2026-09-15,2026-10-15,246000,100000,,Client approval pending,true
+INV-26044,Sample Industrial Estate,Jaipur Site D,2026-11-01,2026-11-30,118000,0,,,,false
+INV-26045,Sample Education Trust,Jaipur Site E,2026-09-01,2026-09-30,76000,0,2026-11-05,,false
+INV-26046,Sample Logistics Hub,Jaipur Site F,2026-11-05,2026-11-20,54000,0,,,,false
