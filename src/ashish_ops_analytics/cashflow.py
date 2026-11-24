@@ -128,7 +128,7 @@ def assess_receivables(df: pd.DataFrame, as_of: date | None = None) -> pd.DataFr
     result["priority_score"] = result.apply(_priority_score, axis=1)
 
     return result.sort_values(
-        ["amount_outstanding", "priority_score"],
+        ["priority_score", "amount_outstanding"],
         ascending=[False, False],
     ).reset_index(drop=True)
 

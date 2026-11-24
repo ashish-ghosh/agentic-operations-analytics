@@ -64,3 +64,18 @@ def test_assess_receivables_rejects_invalid_amounts():
     df.loc[0, "invoice_amount"] = -100
     with pytest.raises(ValueError):
         assess_receivables(df, as_of=date(2026, 11, 23))
+
+
+
+def test_priority_score_orders_urgent_invoice_before_larger_low_risk_invoice():
+    df = sample_invoices()
+    df.loc[df["invoice_id"] == "INV-1", "invoice_amount"] = 200000
+    df.loc[df["invoice_id"] == "INV-1", "amount_received"] = 0
+    df.loc[df["invoice_id"] == "INV-1", "due_date"] = "2026-11-30"
+    df.loc[df["invoice_id"] == "INV-1", "payment_promise_date"] = ""
+    df.loc[df["invoice_id"] == "INV-2", "invoice_amount"] = 50000
+    df.loc[df["invoice_id"] == "INV-2", "due_date"] = "2026-10-10"
+    result = assess_receivables(df, as_of=date(2026, 11, 23))
+
+    assert result.iloc[0]["invoice_id"] == "INV-2"
+    assert result.iloc[0]["priority_score"] > result.iloc[1]["priority_score"]
